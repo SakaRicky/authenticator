@@ -19,6 +19,7 @@ router.get(
 		successRedirect: successLoginUrl,
 	}),
 	(req, res) => {
+		// the authed user
 		console.log(req.user);
 		res.send(req.user);
 	}
