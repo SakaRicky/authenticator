@@ -3,8 +3,8 @@ const passport = require("passport");
 
 const router = express.Router();
 
-const successLoginUrl = "http://127.0.0.1:5500/client/success.html";
-const errorLoginUrl = "http://127.0.0.1:5500/client/error.html";
+const successLoginUrl = "http://127.0.0.1:5500/success.html";
+const errorLoginUrl = "http://127.0.0.1:5500/error.html";
 
 // Implement the /auth/google route to initiate the Google authentication flow
 router.get(
