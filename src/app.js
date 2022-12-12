@@ -27,7 +27,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(session({ secret: "SECRET", resave: true, saveUninitialized: false }));
+app.use(session({ secret: "SECRET" }));
 // Use the passport.initialize() middleware to initialize Passport
 app.use(passport.initialize());
 // Use the passport.session() middleware to support persistent login sessions
@@ -37,8 +37,8 @@ app.use("/login/google", loginWithGoogleRoute);
 app.use("/login/github", loginWithGithubRoute);
 app.use("/login/linkedin", loginWithLinkedInRoute);
 app.use("/getuser", (req, res) => {
-	console.log("req.user in getuser: ", req.user);
-	res.send(req.user);
+	console.log("req.user in getuser: ", req._passport.session.user);
+	res.send(req._passport.session.user);
 });
 
 module.exports = app;
