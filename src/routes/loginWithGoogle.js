@@ -3,6 +3,7 @@ const passport = require("passport");
 
 const router = express.Router();
 
+//"https://shiny-taiyaki-3a8f01.netlify.app/success.html"
 const successLoginUrl = "https://shiny-taiyaki-3a8f01.netlify.app/success.html"; //http://localhost:5500/success.html
 const errorLoginUrl = "https://shiny-taiyaki-3a8f01.netlify.app/error.html";
 

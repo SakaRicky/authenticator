@@ -24,6 +24,7 @@ router.get(
 	(req, res) => {
 		// the authed user
 		// console.log("req.user: ", req.user);
+		es.header("Access-Control-Allow-Origin", "*");
 	}
 );
 

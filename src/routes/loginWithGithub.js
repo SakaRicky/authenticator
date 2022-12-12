@@ -22,6 +22,7 @@ router.get(
 		// saved in the session and the user will be redirected to the home page.
 		// If authentication failed, the user will be redirected to the login page.
 		// res.redirect("/");
+		es.header("Access-Control-Allow-Origin", "*");
 	}
 );
 

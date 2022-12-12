@@ -17,10 +17,7 @@ require("./auth/passportLinkedInSSO");
 const app = express();
 
 const corsOptions = {
-	origin: [
-		"http://localhost:5500",
-		"https://shiny-taiyaki-3a8f01.netlify.app/",
-	],
+	origin: ["*"],
 	credentials: true, //access-control-allow-credentials:true
 	optionSuccessStatus: 200,
 };
