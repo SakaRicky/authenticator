@@ -9,6 +9,9 @@ const loginWithGoogleRoute = require("./routes/loginWithGoogle");
 const loginWithGithubRoute = require("./routes/loginWithGithub");
 const loginWithLinkedInRoute = require("./routes/loginWithLinkedIn");
 
+// Create a new express app
+const app = express();
+
 const corsOptions = {
 	origin: [
 		"http://localhost:5500/",
@@ -29,9 +32,6 @@ app.use(passport.session());
 require("./auth/passportGoogleSSO");
 require("./auth/passportGithubSSO");
 require("./auth/passportLinkedInSSO");
-
-// Create a new express app
-const app = express();
 
 app.use("/login/google", loginWithGoogleRoute);
 app.use("/login/github", loginWithGithubRoute);
