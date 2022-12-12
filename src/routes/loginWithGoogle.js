@@ -3,7 +3,7 @@ const passport = require("passport");
 
 const router = express.Router();
 
-const successLoginUrl = "https://shiny-taiyaki-3a8f01.netlify.app/success.html";
+const successLoginUrl = "https://shiny-taiyaki-3a8f01.netlify.app/success.html"; //http://localhost:5500/success.html
 const errorLoginUrl = "https://shiny-taiyaki-3a8f01.netlify.app/error.html";
 
 // Implement the /auth/google route to initiate the Google authentication flow
@@ -20,8 +20,8 @@ router.get(
 	}),
 	(req, res) => {
 		// the authed user
-		console.log(req.user);
-		res.send(req.user);
+		console.log("req.user: ", req.user);
+		res.header("Access-Control-Allow-Origin", "*");
 	}
 );
 

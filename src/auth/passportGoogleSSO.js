@@ -10,8 +10,7 @@ passport.use(
 		{
 			clientID: GOOGLE_CLIENT_ID,
 			clientSecret: GOOGLE_CLIENT_SECRET,
-			callbackURL:
-				"https://authenticator-ricky.onrender.com/login/google/auth/google/callback",
+			callbackURL: "http://localhost:3001/login/google/auth/google/callback",
 			passReqToCallback: true,
 		},
 		(req, accessToken, refreshToken, profile, cb) => {
@@ -30,18 +29,13 @@ passport.use(
 	)
 );
 
-passport.serializeUser((user, cb) => {
+passport.serializeUser((user, done) => {
 	// console.log("Serializing user:", user);
-	cb(null, user.id);
+	done(null, user);
 });
 
-passport.deserializeUser(async (id, cb) => {
-	const user = await User.findOne({ where: { id } }).catch(err => {
-		console.log("Error deserializing", err);
-		cb(err, null);
-	});
-
+passport.deserializeUser((user, done) => {
 	console.log("DeSerialized user", user);
 
-	if (user) cb(null, user);
+	done(null, user);
 });
