@@ -11,7 +11,7 @@ passport.use(
 			clientID: GOOGLE_CLIENT_ID,
 			clientSecret: GOOGLE_CLIENT_SECRET,
 			callbackURL:
-				"https://authenticator-ricky.onrender.com/auth/google/callback",
+				"https://authenticator-ricky.onrender.com/login/google/auth/google/callback",
 			passReqToCallback: true,
 		},
 		(req, accessToken, refreshToken, profile, cb) => {
