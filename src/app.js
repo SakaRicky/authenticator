@@ -5,9 +5,9 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-const loginWithGoogleRoute = require("./routes/loginWithGoogle");
-const loginWithGithubRoute = require("./routes/loginWithGithub");
-const loginWithLinkedInRoute = require("./routes/loginWithLinkedIn");
+const loginWithGoogleRoute = require("./routes/loginWithGoogle")(passport);
+const loginWithGithubRoute = require("./routes/loginWithGithub")(passport);
+const loginWithLinkedInRoute = require("./routes/loginWithLinkedIn")(passport);
 
 require("./auth/passportGoogleSSO");
 require("./auth/passportGithubSSO");
@@ -37,8 +37,8 @@ app.use("/login/google", loginWithGoogleRoute);
 app.use("/login/github", loginWithGithubRoute);
 app.use("/login/linkedin", loginWithLinkedInRoute);
 app.use("/getuser", (req, res) => {
-	console.log("req.user in getuser: ", req._passport.session.user);
-	res.send(req._passport.session.user);
+	console.log("req.user in getuser: ", req.user);
+	res.send(req.user);
 });
 
 module.exports = app;
