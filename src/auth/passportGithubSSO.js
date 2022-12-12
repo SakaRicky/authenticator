@@ -9,7 +9,8 @@ passport.use(
 		{
 			clientID: GITHUB_CLIENT_ID,
 			clientSecret: GITHUB_CLIENT_SECRET,
-			callbackURL: "http://localhost:3001/login/github/auth/github/callback",
+			callbackURL:
+				"https://authenticator-ricky.onrender.com/login/github/auth/github/callback",
 		},
 		(req, accessToken, refreshToken, profile, cb) => {
 			// This function is called after the user has authenticated with GitHub

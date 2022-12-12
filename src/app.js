@@ -7,9 +7,11 @@ require("dotenv").config();
 
 const loginWithGoogleRoute = require("./routes/loginWithGoogle");
 const loginWithGithubRoute = require("./routes/loginWithGithub");
+const loginWithLinkedInRoute = require("./routes/loginWithLinkedIn");
 
 require("./auth/passportGoogleSSO");
 require("./auth/passportGithubSSO");
+require("./auth/passportLinkedInSSO");
 
 // Create a new express app
 const app = express();
@@ -33,6 +35,7 @@ app.use(passport.session());
 
 app.use("/login/google", loginWithGoogleRoute);
 app.use("/login/github", loginWithGithubRoute);
+app.use("/login/linkedin", loginWithLinkedInRoute);
 app.use("/getuser", (req, res) => {
 	console.log("req.user in getuser: ", req.user);
 	res.send(req.user);
