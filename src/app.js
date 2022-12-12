@@ -15,7 +15,10 @@ require("./auth/passportGithubSSO");
 const app = express();
 
 const corsOptions = {
-	origin: "http://localhost:5500",
+	origin: [
+		"http://localhost:5500",
+		"https://shiny-taiyaki-3a8f01.netlify.app/",
+	],
 	credentials: true, //access-control-allow-credentials:true
 	optionSuccessStatus: 200,
 };
