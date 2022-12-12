@@ -1,6 +1,6 @@
 const express = require("express");
 const passport = require("passport");
-var cookieSession = require("cookie-session");
+const session = require("express-session");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -23,16 +23,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-// app.use(session({ secret: "SECRET" }));
-app.use(
-	cookieSession({
-		name: "session",
-		keys: "secret",
-
-		// Cookie Options
-		maxAge: 24 * 60 * 60 * 1000, // 24 hours
-	})
-);
+app.use(session({ secret: "SECRET" }));
 // Use the passport.initialize() middleware to initialize Passport
 app.use(passport.initialize());
 // Use the passport.session() middleware to support persistent login sessions
