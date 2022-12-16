@@ -1,19 +1,27 @@
 const passport = require("passport");
 const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
 
-const LINKEDIN_CLIENT_ID = "78npoltxp4mugi";
-const LINKEDIN_CLIENT_SECRET = "fncmWJhf5pVR0FHa";
+const LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID;
+const LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
 
 /// Implement the LinkedIn strategy for passport.js
+const callbackURL =
+	process.env.NODE_ENV === "dev"
+		? "http://localhost:3001/login/linkedin/auth/linkedin/callback"
+		: "https://authenticator-ricky.onrender.com/login/linkedin/auth/linkedin/callback";
+
+const LinkedInStrategyConfig = {
+	clientID: LINKEDIN_CLIENT_ID,
+	clientSecret: LINKEDIN_CLIENT_SECRET,
+	callbackURL: callbackURL,
+	scope: ["r_emailaddress", "r_liteprofile"],
+};
+
+console.log("LinkedInStrategyConfig: ", LinkedInStrategyConfig);
+
 passport.use(
 	new LinkedInStrategy(
-		{
-			clientID: LINKEDIN_CLIENT_ID,
-			clientSecret: LINKEDIN_CLIENT_SECRET,
-			callbackURL:
-				"https://authenticator-ricky.onrender.com/login/linkedin/auth/linkedin/callback",
-			scope: ["r_emailaddress", "r_liteprofile"],
-		},
+		LinkedInStrategyConfig,
 		(accessToken, refreshToken, profile, cb) => {
 			// This function is called after the user has authenticated with LinkedIn
 			// and LinkedIn has redirected the user back to your app.

@@ -17,21 +17,48 @@ const corsOptions = {
 		"http://localhost:5500/",
 		"https://shiny-taiyaki-3a8f01.netlify.app",
 	],
-	credentials: true, //access-control-allow-credentials:true
-	optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(session({ secret: "SECRET" }));
+app.use(session({ secret: "SECRET", resave: true, saveUninitialized: false }));
 // Use the passport.initialize() middleware to initialize Passport
 app.use(passport.initialize());
 // Use the passport.session() middleware to support persistent login sessions
 app.use(passport.session());
 
+console.log("process.env.NODE_ENV: ", process.env.NODE_ENV);
+
 require("./auth/passportGoogleSSO");
 require("./auth/passportGithubSSO");
 require("./auth/passportLinkedInSSO");
+
+// Add headers before the routes are defined
+app.use(function (req, res, next) {
+	// Website you wish to allow to connect
+	if (req.headers.origin) {
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+	}
+
+	// Request methods you wish to allow
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+	);
+
+	// Request headers you wish to allow
+	res.setHeader(
+		"Access-Control-Allow-Headers",
+		"X-Requested-With,content-type"
+	);
+
+	// Set to true if you need the website to include cookies in the requests sent
+	// to the API (e.g. in case you use sessions)
+	res.setHeader("Access-Control-Allow-Credentials", true);
+
+	// Pass to next layer of middleware
+	next();
+});
 
 app.use("/login/google", loginWithGoogleRoute);
 app.use("/login/github", loginWithGithubRoute);

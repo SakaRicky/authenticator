@@ -1,17 +1,23 @@
 const passport = require("passport");
 const GitHubStrategy = require("passport-github").Strategy;
 
-const GITHUB_CLIENT_ID = "bd66365d9c1b591cd79a";
-const GITHUB_CLIENT_SECRET = "97bac9c73acae6a4b7accf0ebadf2a65f2a05add";
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+
+const callbackURL =
+	process.env.NODE_ENV === "dev"
+		? "http://localhost:3001/login/github/auth/github/callback"
+		: "https://authenticator-ricky.onrender.com/login/github/auth/github/callback";
+
+const GitHubStrategyConfig = {
+	clientID: GITHUB_CLIENT_ID,
+	clientSecret: GITHUB_CLIENT_SECRET,
+	callbackURL: callbackURL,
+};
 
 passport.use(
 	new GitHubStrategy(
-		{
-			clientID: GITHUB_CLIENT_ID,
-			clientSecret: GITHUB_CLIENT_SECRET,
-			callbackURL:
-				"https://authenticator-ricky.onrender.com/login/github/auth/github/callback",
-		},
+		GitHubStrategyConfig,
 		(req, accessToken, refreshToken, profile, cb) => {
 			// This function is called after the user has authenticated with GitHub
 			// and GitHub has redirected the user back to your app.

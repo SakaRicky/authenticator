@@ -3,7 +3,10 @@ const passport = require("passport");
 
 const router = express.Router();
 
-const successLoginUrl = "https://shiny-taiyaki-3a8f01.netlify.app/success.html";
+const successLoginUrl =
+	process.env.NODE_ENV === "dev"
+		? "http://localhost:5500/success.html"
+		: "https://shiny-taiyaki-3a8f01.netlify.app/success.html";
 const errorLoginUrl = "http://localhost:3000/login/error";
 
 // Implement the /auth/linkedin route to initiate the LinkedIn authentication flow
@@ -20,12 +23,7 @@ router.get(
 	passport.authenticate("linkedin", {
 		failureRedirect: errorLoginUrl,
 		successRedirect: successLoginUrl,
-	}),
-	(req, res) => {
-		// the authed user
-		// console.log("req.user: ", req.user);
-		es.header("Access-Control-Allow-Origin", "*");
-	}
+	})
 );
 
 module.exports = router;

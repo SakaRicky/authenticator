@@ -1,19 +1,25 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-const GOOGLE_CLIENT_ID = process.env.CLIENT_ID;
-const GOOGLE_CLIENT_SECRET = process.env.SECRET;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+
+const callbackURL =
+	process.env.NODE_ENV === "dev"
+		? "http://localhost:3001/login/google/auth/google/callback"
+		: "https://authenticator-ricky.onrender.com/login/google/auth/google/callback";
+
+const googleStrategyConfig = {
+	clientID: GOOGLE_CLIENT_ID,
+	clientSecret: GOOGLE_CLIENT_SECRET,
+	callbackURL: callbackURL,
+	passReqToCallback: true,
+};
 
 // Implement the Google strategy for passport.js
 passport.use(
 	new GoogleStrategy(
-		{
-			clientID: GOOGLE_CLIENT_ID,
-			clientSecret: GOOGLE_CLIENT_SECRET,
-			callbackURL:
-				"https://authenticator-ricky.onrender.com/login/google/auth/google/callback",
-			passReqToCallback: true,
-		},
+		googleStrategyConfig,
 		(req, accessToken, refreshToken, profile, cb) => {
 			// This function is called after the user has authenticated with Google
 			// and Google has redirected the user back to your app.

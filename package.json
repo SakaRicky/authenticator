@@ -4,8 +4,8 @@
 	"description": "Web app that uses SSO to authenticate users",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon ./src/index.js",
-		"start": "node ./src/index.js"
+		"dev": "NODE_ENV=dev nodemon ./src/index.js",
+		"start": "NODE_ENV=production node ./src/index.js"
 	},
 	"author": "",
 	"license": "ISC",
