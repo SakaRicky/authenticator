@@ -10,6 +10,8 @@ const loginWithGithubRoute = require("./routes/loginWithGithub");
 const loginWithLinkedInRoute = require("./routes/loginWithLinkedIn");
 const loginWithFacebookRoute = require("./routes/loginWithFacebook");
 
+const user = require("./auth/passport-serialize");
+
 // Create a new express app
 const app = express();
 
@@ -61,6 +63,9 @@ app.use(function (req, res, next) {
 	// Pass to next layer of middleware
 	next();
 });
+
+passport.serializeUser(user.serialize);
+passport.deserializeUser(user.deserializeUser);
 
 app.use("/login/google", loginWithGoogleRoute);
 app.use("/login/github", loginWithGithubRoute);
