@@ -17,8 +17,6 @@ const LinkedInStrategyConfig = {
 	scope: ["r_emailaddress", "r_liteprofile"],
 };
 
-console.log("LinkedInStrategyConfig: ", LinkedInStrategyConfig);
-
 passport.use(
 	new LinkedInStrategy(
 		LinkedInStrategyConfig,

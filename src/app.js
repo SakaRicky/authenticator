@@ -8,6 +8,7 @@ require("dotenv").config();
 const loginWithGoogleRoute = require("./routes/loginWithGoogle");
 const loginWithGithubRoute = require("./routes/loginWithGithub");
 const loginWithLinkedInRoute = require("./routes/loginWithLinkedIn");
+const loginWithFacebookRoute = require("./routes/loginWithFacebook");
 
 // Create a new express app
 const app = express();
@@ -32,6 +33,7 @@ console.log("process.env.NODE_ENV: ", process.env.NODE_ENV);
 require("./auth/passportGoogleSSO");
 require("./auth/passportGithubSSO");
 require("./auth/passportLinkedInSSO");
+require("./auth/passportFacebookSSO");
 
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
@@ -63,6 +65,7 @@ app.use(function (req, res, next) {
 app.use("/login/google", loginWithGoogleRoute);
 app.use("/login/github", loginWithGithubRoute);
 app.use("/login/linkedin", loginWithLinkedInRoute);
+app.use("/login/facebook", loginWithFacebookRoute);
 app.use("/getuser", (req, res) => {
 	console.log("req.user in getuser: ", req.user);
 	res.send(req.user);

@@ -3,38 +3,23 @@ const passport = require("passport");
 
 const router = express.Router();
 
-const successLoginUrl = "http://localhost:3000/login/success";
-const errorLoginUrl = "http://localhost:3000/login/error";
+//"https://shiny-taiyaki-3a8f01.netlify.app/success.html"
+const successLoginUrl =
+	process.env.NODE_ENV === "dev"
+		? "http://localhost:5500/success.html"
+		: "https://shiny-taiyaki-3a8f01.netlify.app/success.html";
+const errorLoginUrl = "https://shiny-taiyaki-3a8f01.netlify.app/error.html";
 
 // Implement the /auth/facebook route to initiate the Facebook authentication flow
-app.get(
-	"/auth/facebook",
-	passport.authenticate("facebook", { scope: ["email"] })
-);
+router.get("/", passport.authenticate("facebook", { scope: ["email"] }));
 
 // Implement the /auth/facebook/callback route to handle the Facebook authentication callback
-app.get(
+router.get(
 	"/auth/facebook/callback",
-	passport.authenticate("facebook", { failureRedirect: "/login" }),
-	(req, res) => {
-		// If authentication was successful, the user's profile information will be
-		// saved in the session and the user will be redirected to the home page.
-		// If authentication failed, the user will be redirected to the login page.
-		res.redirect("/");
-	}
+	passport.authenticate("facebook", {
+		failureRedirect: errorLoginUrl,
+		successRedirect: successLoginUrl,
+	})
 );
-
-// router.get(
-// 	"/auth/google/callback",
-// 	passport.authenticate("google", {
-// 		failureMessage: "Cannot login to Google, please try again later!",
-// 		failureRedirect: errorLoginUrl,
-// 		successRedirect: successLoginUrl,
-// 	}),
-// 	(req, res) => {
-// 		console.log("User: ", req.user);
-// 		res.send("Thank you for signing in!");
-// 	}
-// );
 
 module.exports = router;
