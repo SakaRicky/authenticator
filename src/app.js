@@ -72,7 +72,7 @@ app.use("/login/github", loginWithGithubRoute);
 app.use("/login/linkedin", loginWithLinkedInRoute);
 app.use("/login/facebook", loginWithFacebookRoute);
 app.use("/getuser", (req, res) => {
-	console.log("req.user in getuser: ", req.user);
+	console.log("req.user in getuser: ", req);
 	res.send(req.user);
 });
 
